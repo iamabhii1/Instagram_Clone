@@ -14,17 +14,22 @@ import com.example.instagramcloneapp.Fragments.HomeFragment
 import com.example.instagramcloneapp.Fragments.NotificationsFragment
 import com.example.instagramcloneapp.Fragments.ProfileFragment
 import com.example.instagramcloneapp.Fragments.SearchFragment
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
-    internal var selectedFragment: Fragment?=null
+
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
-                selectedFragment= HomeFragment()
+                moveToFragment(HomeFragment())
+                return@OnNavigationItemSelectedListener true
+
             }
             R.id.nav_search -> {
-                selectedFragment= SearchFragment()
+                moveToFragment(SearchFragment())
+                return@OnNavigationItemSelectedListener true
+
             }
             R.id.nav_add_post -> {
 
@@ -32,22 +37,14 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
-
-
-                selectedFragment= NotificationsFragment()
+                moveToFragment(NotificationsFragment())
+                return@OnNavigationItemSelectedListener true
             }
             R.id.nav_profile -> {
+                moveToFragment(ProfileFragment())
+                return@OnNavigationItemSelectedListener true
 
-                selectedFragment= ProfileFragment()
             }
-
-        }
-        if(selectedFragment!=null)
-        {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.fragment_container,
-                selectedFragment!!
-            ).commit()
 
         }
 
@@ -61,10 +58,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         navView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        supportFragmentManager.beginTransaction().replace(
-            R.id.fragment_container,
-            HomeFragment()
-        ).commit()
+            /* this is simply means that when the user open the app HomeFragment will be shown
+            * by default */
+        moveToFragment(HomeFragment())
 
+    }
+
+
+    private fun moveToFragment(fragment: Fragment){
+        val fragmentTrans = supportFragmentManager.beginTransaction()
+        fragmentTrans.replace(R.id.fragment_container,fragment)
+        fragmentTrans.commit()
     }
 }
