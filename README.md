@@ -1,2 +1,2 @@
-# Instagram_Clone
-Instragram_Clone app using Kotlin and Firebase
+# Local_Social_Media
+Local_Social_Media app using Kotlin and Firebase
